@@ -1,0 +1,64 @@
+<!-- <ul>
+    <li *ngFor="let snapsort of snapsorts$ | async">
+        {{snapsort.id}} -  {{snapsort.category}} -  {{snapsort.imageurl_as_base64}}
+    </li>
+    <p>{{message$| async}}</p>
+  </ul>  -->
+<div class="container">
+<div style="text-align:center">
+  <h1>
+    Take Snapsort
+  </h1>
+  <div class="row">
+      <div class="col-md-4">
+          <mat-card class="example-card">
+              <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+              </mat-card-header>
+             
+              <mat-card-content>
+                  <webcam [height]="500" [width]="300" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
+                  (initError)="handleInitError($event)"></webcam>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-raised-button color="primary" (click)="triggerSnapshot();">Take A Snapshot</button>
+              </mat-card-actions>
+            </mat-card>
+      </div>
+      <div class="col-md-4">
+          <mat-card style="margin-top: 10px;" *ngIf="webcamImage">
+              <mat-card-header>
+                  <div mat-card-avatar class="example-header-image"></div>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="snapshot" *ngIf="webcamImage">
+                      <img [src]="webcamImage.imageAsDataUrl" [style.width.px]="267" > 
+                    </div>
+                  </mat-card-content>
+                  <mat-card-actions>
+                      <button mat-fab color="primary" *ngIf="webcamImage" (click)="createSnap()">Save</button>
+                    </mat-card-actions>
+          </mat-card>
+      </div>
+    </div>
+<br>
+
+<div class="row">
+    <mat-card class="col-md-4 mat-card-margin-top mat-card-margin-bottom" *ngFor="let snapsort of snapsorts$ | async">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="snapshot" *ngIf="webcamImage">
+                <img [src]="snapsort.imageurl_as_base64" [style.width.px]="300" > 
+              </div>
+            </mat-card-content>
+            <mat-card-actions>
+              </mat-card-actions>
+    </mat-card>
+ </div>
+<h4 *ngIf="errors.length > 0">Messages:</h4>
+<ul *ngFor="let error of errors">
+  <li>{{error | json}}</li>
+</ul>
+</div>
